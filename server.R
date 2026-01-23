@@ -472,7 +472,7 @@ function(input, output, session) {
   # Output alignment summary metrics
   output$percentageAlignedText <- renderText({
     metrics <- reactiveData$alignment_summary
-    paste("Percentage of Aligned Edge Pairs:", round(metrics$percentage_aligned, 2), "%")
+    paste("Percentage of Aligned Node Pairs:", round(metrics$percentage_aligned, 2), "%")
   })
 
   output$adjustedAlignedText <- renderText({
@@ -697,7 +697,7 @@ function(input, output, session) {
       output$alignmentSummaryUI_ <- renderUI({
         tagList(
           h4("Metrics Summary"),
-          p(paste("Percentage of Aligned Edge Pairs:", round(percentage_aligned, 2), "%")),
+          p(paste("Percentage of Aligned Node Pairs:", round(percentage_aligned, 2), "%")),
           p(paste("Adjusted Number of Aligned Edge Pairs:", round(adjusted_aligned, 2)))
         )
       })
