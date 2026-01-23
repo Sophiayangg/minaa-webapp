@@ -7,6 +7,7 @@
 ## Description
 
 The **MiNAA Web App** is a wrapper around [MiNAA](https://github.com/solislemuslab/minaa) built with R Shiny for the purpose of simplifying and enhancing user interaction with it. When complete, this app will be live at [https://minaa.wid.wisc.edu](/).
+The web app does not bundle MiNAA itself; users building the app from source must separately obtain and compile the MiNAA executable.
 
 **MiNAA** is a standalone program which aligns a pair of given networks on the basis of their topological and biological data. Follow the instructions in [MiNAA's Repository](https://github.com/solislemuslab/minaa) to run MiNAA locally in the terminal.
 
@@ -31,7 +32,7 @@ cd minaa-webapp
 
 ### 2. Compile MiNAA
 
-The Shiny app requires a compiled executable of MiNAA (`minaa.exe`) in the root of the project directory. The compilation process varies by operating system. See [MiNAA's README](https://github.com/solislemuslab/minaa?tab=readme-ov-file#compilation) for more information.
+The Shiny app requires a compiled executable of MiNAA (`minaa.exe`). To obtain this, you must clone the separate `solislemuslab/minaa` repository and build MiNAA for your environment. The compilation process varies by operating system. See [MiNAA's README](https://github.com/solislemuslab/minaa?tab=readme-ov-file#compilation) for more information.
 
 ### 3. Install Dependencies
 
