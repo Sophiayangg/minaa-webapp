@@ -461,9 +461,9 @@ function(input, output, session) {
 
     header_line <- readLines(alignment_list_filepath, n = 1)
     total_cost <- as.numeric(sub("X", "", strsplit(header_line, ",")[[1]][1]))
-    #print(total_cost)
+    aligned_edges <- sum(data$alignment_GA > 0)
     average_edge_alignment_cost <- total_cost / aligned_edges
-    print(total_cost)
+
     list(
       percentage_aligned = percentage_aligned,
       average_edge_alignment_cost = average_edge_alignment_cost
@@ -689,10 +689,9 @@ function(input, output, session) {
       
       #header_line <- readLines(alignment_list_filepath, n = 1)
       #total_cost <- as.numeric(sub("X", "", strsplit(header_line, ",")[[1]][1]))
-     # print(total_cost)
+      aligned_edges <- sum(reactiveData$alignment_GA > 0)
       average_edge_alignment_cost <- total_cost / aligned_edges
-      #print(aligned_edges)
-      print(total_cost)
+      #print(total_cost)
       percentage_aligned = percentage_aligned
       average_edge_alignment_cost = average_edge_alignment_cost
 
