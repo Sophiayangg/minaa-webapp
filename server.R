@@ -461,11 +461,11 @@ function(input, output, session) {
     header_line <- readLines(alignment_list_filepath, n = 1)
     total_cost <- as.numeric(sub("X", "", strsplit(header_line, ",")[[1]][1]))
     #print(total_cost)
-    adjusted_aligned <- (aligned_edges - (total_cost / aligned_edges))
+    average_edge_alignment_cost <- total_cost / aligned_edges
     print(total_cost)
     list(
       percentage_aligned = percentage_aligned,
-      adjusted_aligned = adjusted_aligned
+      average_edge_alignment_cost = average_edge_alignment_cost
     )
   }
 
@@ -476,9 +476,10 @@ function(input, output, session) {
   })
 
   output$adjustedAlignedText <- renderText({
-    metrics <- reactiveData$alignment_summary
-    paste("Adjusted Number of Aligned Edge Pairs:", round(metrics$adjusted_aligned, 2))
-  })
+  metrics <- reactiveData$alignment_summary
+  paste("Average Edge Alignment Cost:", round(metrics$average_edge_alignment_cost, 4))
+})
+
 
   output$downloadPlot <- downloadHandler(
     filename = function() {
@@ -686,11 +687,11 @@ function(input, output, session) {
       #header_line <- readLines(alignment_list_filepath, n = 1)
       #total_cost <- as.numeric(sub("X", "", strsplit(header_line, ",")[[1]][1]))
      # print(total_cost)
-      adjusted_aligned <- (aligned_edges - (total_cost / aligned_edges))
-      print(aligned_edges)
+      average_edge_alignment_cost <- total_cost / aligned_edges
+      #print(aligned_edges)
       print(total_cost)
       percentage_aligned = percentage_aligned
-      adjusted_aligned = adjusted_aligned
+      average_edge_alignment_cost = average_edge_alignment_cost
 
 
       # Display the metrics and plot the network (assuming the rest of the code for visualization exists)
@@ -698,7 +699,8 @@ function(input, output, session) {
         tagList(
           h4("Metrics Summary"),
           p(paste("Percentage of Aligned Edge Pairs:", round(percentage_aligned, 2), "%")),
-          p(paste("Adjusted Number of Aligned Edge Pairs:", round(adjusted_aligned, 2)))
+          p(paste("Average Edge Alignment Cost:", round(average_edge_alignment_cost, 4)))
+
         )
       })
     } else {
