@@ -449,10 +449,11 @@ function(input, output, session) {
     if (is.null(data$adj_G) || is.null(data$adj_A) || is.null(data$alignment_GA)) {
       return(NULL)
     }
-    aligned_edges <- sum(data$alignment_GA > 0)
-    print(aligned_edges)
+    aligned_node_indices_G <- which(rowSums(data$alignment_GA > 0) > 0)
+    num_aligned_nodes <- length(aligned_node_indices_G)
+    
     min_nodes <- min(nrow(data$adj_G), nrow(data$adj_A))
-    percentage_aligned <- (aligned_edges / min_nodes) * 100
+    percentage_aligned <- (num_aligned_nodes / min_nodes) * 100
 
     # alignment_dir <- sprintf("%s-%s", tools::file_path_sans_ext(basename(G)), tools::file_path_sans_ext(basename(H)))
 
@@ -472,7 +473,7 @@ function(input, output, session) {
   # Output alignment summary metrics
   output$percentageAlignedText <- renderText({
     metrics <- reactiveData$alignment_summary
-    paste("Percentage of Aligned Edge Pairs:", round(metrics$percentage_aligned, 2), "%")
+    paste("Percentage of Aligned Node Pairs:", round(metrics$percentage_aligned, 2), "%")
   })
 
   output$adjustedAlignedText <- renderText({
@@ -674,10 +675,12 @@ function(input, output, session) {
       if (is.null(reactiveData$adj_G) || is.null(reactiveData$adj_A) || is.null(reactiveData$alignment_GA)) {
         return(NULL)
       }
-      aligned_edges <- sum(reactiveData$alignment_GA > 0)
-      #print(aligned_edges)
+      aligned_node_indices_G <- which(rowSums(reactiveData$alignment_GA > 0) > 0)
+      num_aligned_nodes <- length(aligned_node_indices_G)
+      
       min_nodes <- min(nrow(reactiveData$adj_G), nrow(reactiveData$adj_A))
-      percentage_aligned <- (aligned_edges / min_nodes) * 100
+      percentage_aligned <- (num_aligned_nodes / min_nodes) * 100
+
 
       
       #alignment_dir <- sprintf("%s-%s", tools::file_path_sans_ext(basename(G)), tools::file_path_sans_ext(basename(H)))
@@ -698,7 +701,7 @@ function(input, output, session) {
       output$alignmentSummaryUI_ <- renderUI({
         tagList(
           h4("Metrics Summary"),
-          p(paste("Percentage of Aligned Edge Pairs:", round(percentage_aligned, 2), "%")),
+          p(paste("Percentage of Aligned Node Pairs:", round(percentage_aligned, 2), "%")),
           p(paste("Average Edge Alignment Cost:", round(average_edge_alignment_cost, 4)))
 
         )
